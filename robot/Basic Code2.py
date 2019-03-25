@@ -3,7 +3,7 @@ from ev3dev2 import *
 import time
 import os
 import sys
-from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank
+from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank, MediumMotor, OUTPUT_C
 # from ev3dev2.sensor import INPUT_1
 # from ev3dev2.sensor import INPUT_2
 # from ev3dev2.sensor.lego import TouchSensor, UltrasonicSensor
@@ -16,7 +16,17 @@ print("starting")
 
 m = MoveTank(OUTPUT_A, OUTPUT_B)
 
-m.on_for_rotations(SpeedPercent(-20), SpeedPercent(20), rotations = 2, block = False, brake = True)
+a = MediumMotor(OUTPUT_C)
+
+while True:
+    a.on_for_degrees(-100,2000, block = True)
+    # a.wait_until_not_moving()
+    a.on_for_degrees(100, 2000, block = True)
+    # a.wait_until_not_moving()
+
+m.on_for_degrees(100, 100, 90, block = False, brake = True)
+
+print("done")
 # this is my variable for the simultaneous control of 2 large motors attached to brick outputs A and B
 
 #while not TS.is_pressed:
