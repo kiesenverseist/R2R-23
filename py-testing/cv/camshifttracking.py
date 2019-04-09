@@ -1,6 +1,7 @@
 import numpy as np
 import cv2 as cv
-cap = cv.VideoCapture(1)
+
+cap = cv.VideoCapture(5)
 # take first frame of the video
 ret,frame = cap.read()
 # setup initial location of window
@@ -20,10 +21,14 @@ while(1):
         hsv = cv.cvtColor(frame, cv.COLOR_BGR2HSV)
 
         # define range of color in HSV
-        lower = np.array([30,50,50])
-        upper = np.array([70,255,255])
+        zero = np.array([0,100,100])
+        lower = np.array([5,255,255])
+        upper = np.array([250,100,100])
+        biggest = np.array([255,255,255])
         # Threshold the HSV image to get only colors
-        mask = cv.inRange(hsv, lower, upper)
+        mask1 = cv.inRange(hsv, zero, lower)
+        mask2 = cv.inRange(hsv, upper, biggest)
+        mask = cv.add(mask1, mask2)
         # apply meanshift to get the new location
         ret, track_window = cv.CamShift(mask, track_window, term_crit)
         # Draw it on image
