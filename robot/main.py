@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
-import demo as start
+import client-basicws as 
 
-start.run()
+ws.start()
+ws.send_message("test message")

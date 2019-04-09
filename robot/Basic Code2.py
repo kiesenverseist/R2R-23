@@ -3,9 +3,9 @@ from ev3dev2 import *
 import time
 import os
 import sys
-from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank, MediumMotor, OUTPUT_C
-# from ev3dev2.sensor import INPUT_1
-# from ev3dev2.sensor import INPUT_2
+from ev3dev2.motor import LargeMotor, OUTPUT_A, OUTPUT_B, SpeedPercent, MoveTank, MediumMotor, OUTPUT_C, OUTPUT_D
+from ev3dev2.sensor import INPUT_1
+from ev3dev2.sensor import INPUT_2
 # from ev3dev2.sensor.lego import TouchSensor, UltrasonicSensor
 
 # these lines allow me to access a variety of libraries for sensors, motors etc.
@@ -14,17 +14,17 @@ print("starting")
 
 # us = UltrasonicSensor(INPUT_2)
 
-m = MoveTank(OUTPUT_A, OUTPUT_B)
+# m = MoveTank(OUTPUT_A, OUTPUT_B)
 
-a = MediumMotor(OUTPUT_C)
+c = MediumMotor(OUTPUT_C)
+d = LargeMotor(OUTPUT_D)
 
-while True:
-    a.on_for_degrees(-100,2000, block = True)
-    # a.wait_until_not_moving()
-    a.on_for_degrees(100, 2000, block = True)
-    # a.wait_until_not_moving()
-
-m.on_for_degrees(100, 100, 90, block = False, brake = True)
+c.on_for_degrees(100,700, block = True)
+# m.on_for_seconds(100, 100, 5, block = True, brake = True)
+d.on_for_degrees(70, 100, block = True, brake = True)
+c.on_for_degrees(-100, 1400, block = True)
+d.on_for_degrees(-70, 100, block = True, brake = True)
+# m.on_for_seconds(-100, -100, 5, block = True, brake = True)
 
 print("done")
 # this is my variable for the simultaneous control of 2 large motors attached to brick outputs A and B
